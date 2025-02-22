@@ -1,3 +1,8 @@
 downloaded_images/
 matched_images/
 uploaded_image.jpg
+download.py
+init.py
+auth.json
+.myenv
+__pycache__/

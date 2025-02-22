@@ -18,6 +18,23 @@ This project provides a simple API for face matching using the DeepFace library.
 - Shutil
 - OS
 
+## Automated Installation (For Linux users)
+
+1. **Give execution permission for the script**:
+   The script requires execution permission to be able to run, navigate into the project folder after cloning and use the following command:
+   ```bash
+   chmod +x ./setup.sh
+   ```
+2. **Run the script**:
+   To run the script use
+   ```bash
+   ./setup.sh
+   ```
+
+### Note:
+
+    Installation script (.bat file is under development)
+
 ## Installation
 
 1. **Clone the repository**:
@@ -40,65 +57,63 @@ This project provides a simple API for face matching using the DeepFace library.
 
 1. **Run the Flask application**:
 
-```bash
+   ```bash
    python app.py
-```
+   ```
 
 2. **Upload an image**:
 
-Use the /upload endpoint to upload an image and find matches.
+   Use the /upload endpoint to upload an image and find matches.
 
-Example using curl:
+   Example using curl:
 
-```bash
-curl -X POST -F "file=@path_to_your_image.jpg" http://localhost:5000/upload
+   ```bash
+   curl -X POST -F "file=@path_to_your_image.jpg" http://localhost:5000/upload
+   ```
+
+   Retrieve matched images:
+
+   Use the `/matched-images/<filename>` endpoint to retrieve matched images.
+
+   Example using curl:
+
+   ```bash
+     curl -O http://localhost:5000/matched-images/matched_image.jpg
+   ```
+
+### API Endpoints:
+
 ```
-
-Retrieve matched images:
-
-Use the `/matched-images/<filename>` endpoint to retrieve matched images.
-
-Example using curl:
-
-```bash
-  curl -O http://localhost:5000/matched-images/matched_image.jpg
-```
-
-API Endpoints
-
     POST /upload: Upload an image to find matching faces.
+	Request: Form-data with a file field named file.
+	Response: JSON with matched images data or an error message.
 
-        Request: Form-data with a file field named file.
+	GET /matched-images/<filename>: Retrieve a matched image by filename.
+       Response: The matched image file or an error message.
+```
 
-        Response: JSON with matched images data or an error message.
+Example Response:
 
-    GET /matched-images/<filename>: Retrieve a matched image by filename.
-
-        Response: The matched image file or an error message.
-
-Example Response
-json
-Copy
-
+```json
 {
-"matched_images": [
-{
-"file_name": "matched_image1.jpg",
-"distance": 0.45,
-"match_rate": 45.0
-},
-{
-"file_name": "matched_image2.jpg",
-"distance": 0.50,
-"match_rate": 50.0
+  "matched_images": [
+    {
+      "file_name": "matched_image1.jpg",
+      "distance": 0.45,
+      "match_rate": 45.0
+    },
+    {
+      "file_name": "matched_image2.jpg",
+      "distance": 0.5,
+      "match_rate": 50.0
+    }
+  ]
 }
-]
-}
+```
 
-Configuration
+### Configuration :
 
     MATCHED_IMAGES_DIR: Directory to save matched images temporarily.
-
     DATASET_DIR: Directory containing the dataset images.
 
 ## Contributing
